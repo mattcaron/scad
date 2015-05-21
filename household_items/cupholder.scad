@@ -13,23 +13,23 @@ clip_depth = wood_thickness + (wall_thickness * 2);
 delta = .1;
 
 union() {
-	difference() {
-	   cylinder(h=holder_height, r=cup_radius + wall_thickness);
-		translate([0, 0, bottom_thickness]) {
-			cylinder(h=holder_height, r=cup_radius);
-		}
-	}
-	difference() {
-		translate([cup_radius + clip_depth / 2,
-					  0,
-					  holder_height - clip_height / 2]) {
-			cube([clip_depth, clip_width, clip_height], center = true);
-		}
-		translate([cup_radius + clip_depth / 2,
-					  0,
-					  holder_height - clip_height / 2 - wall_thickness]) {
-			cube([wood_thickness, clip_width + delta, clip_height],
-					center = true);
-		}
-	}
+    difference() {
+        cylinder(h=holder_height, r=cup_radius + wall_thickness);
+        translate([0, 0, bottom_thickness]) {
+            cylinder(h=holder_height, r=cup_radius);
+        }
+    }
+    difference() {
+        translate([cup_radius + clip_depth / 2,
+                   0,
+                   holder_height - clip_height / 2]) {
+            cube([clip_depth, clip_width, clip_height], center = true);
+        }
+        translate([cup_radius + clip_depth / 2,
+                   0,
+                   holder_height - clip_height / 2 - wall_thickness]) {
+            cube([wood_thickness, clip_width + delta, clip_height],
+                 center = true);
+        }
+    }
 }
