@@ -23,7 +23,8 @@ primer_diameter = 8;
 // Straight part of bullet before it starts to taper
 straight_part = (overall_length - case_length) / 4;
 
-$fn=100;
+// Fragment count. Use this many fragments to make a circle.
+$fn = 360;
 
 module 50bmg(isLoaded) {
     difference() {

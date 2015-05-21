@@ -7,8 +7,8 @@ gap = 6;
 // Avoid surface overlap
 delta = .1;
 
-// Poly count
-$fn=100;
+// Fragment count. Use this many fragments to make a circle.
+$fn = 360;
 
 // We want it to hold a cup this big and it should come about halfway
 // up the cup.
