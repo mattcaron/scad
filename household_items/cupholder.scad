@@ -39,14 +39,6 @@ clip_cutout_x = wood_thickness + gap;
 clip_cutout_y = clip_y + delta;
 clip_cutout_z = wood_height;
 
-// It looks stupid of the cupholder isn't as tall as the clip
-// And this doesn't work, brute force it..
-// if (clip_height > cupholder_height) {
-//    cupholder_height = clip_height;
-// }
-// else {
-//    cupholder_height = cup_height / 2;
-// }
 cupholder_height = clip_z;
 
 union() {
