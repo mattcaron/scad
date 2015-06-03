@@ -1,32 +1,12 @@
-number=10;
-
-// sizes are in mm, from wikipedia (both listed and drawing)
-bullet_diameter = 13.0;
-neck_diameter = 14.2;
-shoulder_diameter = 18.1;
-base_diameter = 20.4;
-rim_diameter = 20.4;
-rim_thickness = 2.1;
-case_length = 99;
-overall_length = 138;
-case_length_before_shoulder=76.4;
-neck_length=16.1;
-// distance between bottom of cartridge to where the case begins
-// to return to normal diameter
-rim_recess=5.3;
-recess_diameter=17.3;
-// Estimated base thickness (not the rim, but the bottom of the
-// interior cavity)
-base_thickness = 2;
-primer_diameter = 8;
-
-// Straight part of bullet before it starts to taper
-straight_part = (overall_length - case_length) / 4;
-
 // Fragment count. Use this many fragments to make a circle.
 $fn = 360;
 
-module 50bmg(isLoaded) {
+module makeRound(bullet_diameter, neck_diameter, shoulder_diameter,
+                 base_diameter, rim_diameter, rim_thickness, case_length,
+                 overall_length, case_length_before_shoulder, neck_length,
+                 rim_recess, recess_diameter, base_thickness, primer_diameter,
+                 straight_part, isLoaded)
+{
     difference() {
         // Outside of the case
         union() {
@@ -107,7 +87,40 @@ module 50bmg(isLoaded) {
     }
 }
 
+module 50bmg(isLoaded)
+{
+    // sizes are in mm, from wikipedia (both listed and drawing)
+    bullet_diameter = 13.0;
+    neck_diameter = 14.2;
+    shoulder_diameter = 18.1;
+    base_diameter = 20.4;
+    rim_diameter = 20.4;
+    rim_thickness = 2.1;
+    case_length = 99;
+    overall_length = 138;
+    case_length_before_shoulder=76.4;
+    neck_length=16.1;
+    // distance between bottom of cartridge to where the case begins
+    // to return to normal diameter
+    rim_recess=5.3;
+    recess_diameter=17.3;
+    // Estimated base thickness (not the rim, but the bottom of the
+    // interior cavity)
+    base_thickness = 2;
+    primer_diameter = 8;
 
+    // Straight part of bullet before it starts to taper
+    straight_part = (overall_length - case_length) / 4;
+
+    makeRound(bullet_diameter, neck_diameter, shoulder_diameter, base_diameter,
+              rim_diameter, rim_thickness, case_length, overall_length,
+              case_length_before_shoulder, neck_length, rim_recess,
+              recess_diameter, base_thickness, primer_diameter, straight_part,
+              1);
+}
+
+
+number=10;
 //for (i = [ 0 : number ] ) {
 //	translate([base_diameter * i, 0, 0]) {
 50bmg(1);
