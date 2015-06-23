@@ -97,13 +97,13 @@ module makeRound(bullet_diameter, neck_diameter, shoulder_diameter,
             translate([0, 0, rim_recess + base_thickness]) {
                 cylinder(h = case_length, r = bullet_diameter / 2);
             }
+
+            // Firing pin dimple
+            translate([0, 0, -(rim_thickness / 2)]) {
+                cylinder(h = rim_thickness, r1 = .5, r2 = .35);
+            }
         }
-	
-        // Firing pin dimple
-        translate([0, 0, -(rim_thickness / 2)]) {
-            cylinder(h = rim_thickness, r1 = .5, r2 = .35);
-        }
-	
+
         // Primer "ring"
         translate([0, 0, -1]) {
             difference() {
