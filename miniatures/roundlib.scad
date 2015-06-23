@@ -1,3 +1,18 @@
+use <BezierCone.scad>
+
+// This is not super accurate for anything past where it's seated into
+// the cartridge, because we don't care.
+// It also doesn't suppor any type of flat-nosed spitzer
+// bullet. Again, we don't care.
+module makeSpitzerBullet(bullet_diameter, base_length, ogive_length)
+{
+    union() {
+        cylinder(h = base_length, r = bullet_diameter / 2);
+        translate([0, 0, base_length]) {
+            BezCone(d = bullet_diameter, h = ogive_length, curve=3);
+        }
+    }
+}
 
 module makeRound(bullet_diameter, neck_diameter, shoulder_diameter,
                  base_diameter, rim_diameter, rim_thickness, case_length,
@@ -64,20 +79,9 @@ module makeRound(bullet_diameter, neck_diameter, shoulder_diameter,
             // Optional bullet
             // A straight part followed by a taper, with a rounded tip.
             if (isLoaded == 1) {
-                // Straight part
-                translate([0, 0, case_length]) {
-                    cylinder(h = straight_part, r = bullet_diameter / 2);
-                }
-
-                // Taper
-                // TODO - this taper is too sharp, and it
-                // comes to a sharp point, both of which are wrong.
-                translate([0, 0, case_length + straight_part]) {
-                    cylinder(h = overall_length -
-                             case_length -
-                             straight_part,
-                             r1 = bullet_diameter / 2,
-                             r2 = 0);
+                translate([0, 0, case_length - straight_part]) {
+                    makeSpitzerBullet(bullet_diameter, straight_part,
+                                      overall_length - case_length);
                 }
             }	
         }
