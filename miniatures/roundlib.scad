@@ -77,7 +77,10 @@ module makeRound(bullet_diameter, neck_diameter, shoulder_diameter,
             }
 
             // Optional bullet
-            // A straight part followed by a taper, with a rounded tip.
+            // A straight part followed by a taper, with a rounded
+            // tip.
+            // Note that the bearing surface is totally within the
+            // round, and the cannelure is not modeled.
             if (isLoaded == 1) {
                 translate([0, 0, case_length - bearing_surface]) {
                     makeSpitzerBullet(bullet_diameter, bearing_surface,
