@@ -18,7 +18,7 @@ module makeRound(bullet_diameter, neck_diameter, shoulder_diameter,
                  base_diameter, rim_diameter, rim_thickness, case_length,
                  overall_length, case_length_before_shoulder, neck_length,
                  rim_recess, recess_diameter, base_thickness, primer_diameter,
-                 straight_part, isLoaded)
+                 bearing_surface, isLoaded)
 {
     difference() {
         // Outside of the case
@@ -79,8 +79,8 @@ module makeRound(bullet_diameter, neck_diameter, shoulder_diameter,
             // Optional bullet
             // A straight part followed by a taper, with a rounded tip.
             if (isLoaded == 1) {
-                translate([0, 0, case_length - straight_part]) {
-                    makeSpitzerBullet(bullet_diameter, straight_part,
+                translate([0, 0, case_length - bearing_surface]) {
+                    makeSpitzerBullet(bullet_diameter, bearing_surface,
                                       overall_length - case_length);
                 }
             }	
@@ -138,12 +138,12 @@ module 50bmg(isLoaded)
     primer_diameter = 5.4;
 
     // Straight part of bullet before it starts to taper
-    straight_part = (overall_length - case_length) / 4;
+    bearing_surface = (overall_length - case_length) / 4;
 
     makeRound(bullet_diameter, neck_diameter, shoulder_diameter, base_diameter,
               rim_diameter, rim_thickness, case_length, overall_length,
               case_length_before_shoulder, neck_length, rim_recess,
-              recess_diameter, base_thickness, primer_diameter, straight_part,
+              recess_diameter, base_thickness, primer_diameter, bearing_surface,
               isLoaded);
 }
 
@@ -172,11 +172,11 @@ module 45_70(isLoaded)
     primer_diameter = 5.4;
 
     // Straight part of bullet before it starts to taper
-    straight_part = (overall_length - case_length) / 4;
+    bearing_surface = (overall_length - case_length) / 4;
 
     makeRound(bullet_diameter, neck_diameter, shoulder_diameter, base_diameter,
               rim_diameter, rim_thickness, case_length, overall_length,
               case_length_before_shoulder, neck_length, rim_recess,
-              recess_diameter, base_thickness, primer_diameter, straight_part,
+              recess_diameter, base_thickness, primer_diameter, bearing_surface,
               isLoaded);
 }
