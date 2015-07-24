@@ -12,7 +12,7 @@ $fn = 360;
 
 // We want it to hold a cup this big and it should come about halfway
 // up the cup.
-cup_diameter = 77;
+cup_diameter = 80;
 cup_height = 130;
 
 // The thing on which the clip rests.
