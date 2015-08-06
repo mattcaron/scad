@@ -22,19 +22,27 @@ clip_length = laser_diameter + (wall_thickness * 2);
 // Delta to make sure that we have a clean subtraction.
 delta = 1;
 
-// Make an eye
 module makeEye()
 {
-    translate([bar_width + wall_thickness - 1, 0,
-               bar_width - wall_thickness / 2 ]) {
+    translate([bar_width - wall_thickness / 2, 0,
+               bar_width - wall_thickness / 2]) {
         rotate([0, -45, 0]) {
-            difference() {
-                cylinder(h=mount_thickness,
-                         d=laser_diameter + (wall_thickness * 2));
-                translate([0, 0, -delta / 2]) {
-                    cylinder(h=mount_thickness + delta,
-                             d=laser_diameter);
-                }
+                cube(size = [mount_thickness * 2 , 
+                     clip_length,
+                     mount_thickness],
+                     center=true);
+        }
+    }
+}
+
+module makeEyeHole()
+{
+    translate([bar_width - wall_thickness / 2, 0,
+               bar_width - wall_thickness / 2]) {
+        rotate([0, -45, 0]) {
+            translate([0, 0, -(mount_thickness + delta) / 2]) {
+                cylinder(h=mount_thickness + delta,
+                         d=laser_diameter);
             }
         }
     }
@@ -55,38 +63,53 @@ module sliceBevel()
     }
 }
 
-// make the box
 difference() {
-    cube(size = [bar_width + wall_thickness * 2, clip_length,
-                 bar_width + wall_thickness * 2], center=true);
 
-    // Hole for the bar
-    translate([0, -delta / 2 , 0]) {
-        // this shouldn't need to be delta * 2, but I'm tired of
-        // messing with it.
-        cube(size = [bar_width,
-                     clip_length + delta * 2,
-                     bar_width], center=true);
+    union() {
+        // make the box
+        difference() {
+            cube(size = [bar_width + wall_thickness * 2, clip_length,
+                         bar_width + wall_thickness * 2], center=true);
+            
+            // Hole for the bar
+            translate([0, -delta / 2 , 0]) {
+                // this shouldn't need to be delta * 2, but I'm tired of
+                // messing with it.
+                cube(size = [bar_width,
+                             clip_length + delta * 2,
+                             bar_width], center=true);
+            }
+
+            // Hole for the clip
+            translate([0, -delta / 2, -bar_width / 2 ]) {
+                // this shouldn't need to be delta * 2, but I'm tired of
+                // messing with it.
+                cube(size = [bar_width - wall_thickness * 1.5,
+                             clip_length + delta * 2,
+                             bar_width - wall_thickness * 1.5], center=true);
+            }
+
+            // Bevel the edges
+            sliceBevel();
+            mirror(){
+                sliceBevel();
+            }
+        }
+
+        // add the two eyes
+        makeEye();
+        mirror() {
+            makeEye();
+        }
     }
-
-    // Hole for the clip
-    translate([0, -delta / 2, -bar_width / 2 ]) {
-        // this shouldn't need to be delta * 2, but I'm tired of
-        // messing with it.
-        cube(size = [bar_width - wall_thickness * 1.5,
-                     clip_length + delta * 2,
-                     bar_width - wall_thickness * 1.5], center=true);
-    }
-
-    // Bevel the edges
-    sliceBevel();
-    mirror(){
-        sliceBevel();
+    // drill out the holes
+    makeEyeHole();
+    mirror() {
+        makeEyeHole();
     }
 }
 
-// add the two eyes
-makeEye();
-mirror() {
-    makeEye();
-}
+            
+
+
+
