@@ -1,4 +1,4 @@
-// Dimensions are on mm
+// Dimensions are in mm.
 
 // There should be this much additional space to allow for
 // some slop in the fit. This is per side.
