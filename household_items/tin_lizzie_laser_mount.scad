@@ -48,23 +48,7 @@ module makeEyeHole()
     }
 }
 
-module sliceBevel()
-{
-    translate([-(bar_width - wall_thickness * 2) / 2, 0,
-               -(bar_width + wall_thickness * 2) / 2]) {
-        rotate([0, 45, 0]) {
-            difference() {
-                cube(size = [wall_thickness * 1.5,
-                             clip_length + delta,
-                             wall_thickness * 1.5],
-                     center=true);
-            }
-        }
-    }
-}
-
 difference() {
-
     union() {
         // make the box
         difference() {
@@ -72,41 +56,21 @@ difference() {
                          bar_width + wall_thickness * 2], center=true);
             
             // Hole for the bar
-            translate([0, -delta / 2 , 0]) {
+            translate([0, -delta / 2 , -wall_thickness / 2]) {
                 // this shouldn't need to be delta * 2, but I'm tired of
                 // messing with it.
                 cube(size = [bar_width,
                              clip_length + delta * 2,
-                             bar_width], center=true);
-            }
-
-            // Hole for the clip
-            translate([0, -delta / 2, -bar_width / 2 ]) {
-                // this shouldn't need to be delta * 2, but I'm tired of
-                // messing with it.
-                cube(size = [bar_width - wall_thickness * 1.5,
-                             clip_length + delta * 2,
-                             bar_width - wall_thickness * 1.5], center=true);
-            }
-
-            // Bevel the edges
-            sliceBevel();
-            mirror(){
-                sliceBevel();
+                             bar_width + wall_thickness + delta],
+                     center=true);
             }
         }
 
-        // add the two eyes
+        // add the eye
         makeEye();
-        mirror() {
-            makeEye();
-        }
     }
     // drill out the holes
     makeEyeHole();
-    mirror() {
-        makeEyeHole();
-    }
 }
 
             
