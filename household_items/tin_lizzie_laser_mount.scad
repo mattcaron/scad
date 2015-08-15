@@ -56,11 +56,9 @@ difference() {
                          bar_width + wall_thickness * 2], center=true);
             
             // Hole for the bar
-            translate([0, -delta / 2 , -wall_thickness / 2]) {
-                // this shouldn't need to be delta * 2, but I'm tired of
-                // messing with it.
+            translate([0, 0, -wall_thickness / 2]) {
                 cube(size = [bar_width,
-                             clip_length + delta * 2,
+                             clip_length + delta,
                              bar_width + wall_thickness + delta],
                      center=true);
             }
