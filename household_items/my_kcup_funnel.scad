@@ -18,7 +18,7 @@ lower_cylinder_height = 20;
 upper_cylinder_bottom_diameter = 50;
 
 // Upper cylinder top O.D.
-upper_cylinder_top_diameter = 100;
+upper_cylinder_top_diameter = 95;
 
 // Upper cylinder height
 upper_cylinder_height = 40;
