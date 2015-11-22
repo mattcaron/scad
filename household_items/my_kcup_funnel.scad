@@ -1,6 +1,6 @@
 // Dimensions are in mm.
 
-wall_thickness = 3;
+wall_thickness = 2;
 
 // Avoid surface overlap
 delta = .1;
@@ -18,10 +18,10 @@ lower_cylinder_height = 20;
 upper_cylinder_bottom_diameter = 50;
 
 // Upper cylinder top O.D.
-upper_cylinder_top_diameter = 95;
+upper_cylinder_top_diameter = 75;
 
 // Upper cylinder height
-upper_cylinder_height = 40;
+upper_cylinder_height = 20;
 
 difference() {
     union() {
@@ -42,7 +42,7 @@ difference() {
         // And this gives us our angled edges
         translate([0, 0, lower_cylinder_height + wall_thickness]) {
             cylinder(h = upper_cylinder_height + delta,
-                     d1 = upper_cylinder_bottom_diameter - (wall_thickness * 2),
+                     d1 = lower_cylinder_diameter - (wall_thickness * 2),
                      d2 = upper_cylinder_top_diameter - (wall_thickness * 2));
         }
     }
