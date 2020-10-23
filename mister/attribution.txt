@@ -1,0 +1,24 @@
+DE10_Center_Y_Axis_Both_IO.stl is from
+http://www.thingiverse.com/thing:3184154 and is used without
+modification.
+
+Bottom_Shell_-_Extended_USB_Bridge.stl is from
+https://www.thingiverse.com/thing:4059606 and is used without
+modification.
+
+Front_Cover_-_Extended_USB_Bridge_covered.stl was originally
+Front_Cover_-_Extended_USB_Bridge.stl and was from
+https://www.thingiverse.com/thing:4059606 and was modified to add a cover
+for the USB bridge so it is not exposed.
+
+Rear_Cover_-_Extended_USB_Bridge_no_IO_Board.stl was originally 
+Rear_Cover_-_Extended_USB_Bridge.stl and was from
+https://www.thingiverse.com/thing:4059606 and was modified to block
+up the holes for the I/O board (VGA and Audio).
+
+Main-Top-M_no_IO_Board.stl was originally Main-Top-M.stl from
+https://www.thingiverse.com/thing:3647626 and was modified to block up
+the holes for the I/O board (switch, SD card, USB, buttons, and light pipes).
+
+Feet are my own design, and needed longer screws than those supplied
+with the board. I jused M3 hex head screws, 10mm long.
