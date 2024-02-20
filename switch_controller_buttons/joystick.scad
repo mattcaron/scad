@@ -15,10 +15,11 @@ stick_dome_thickness = ACTUAL_STICK_THICKNESS / 4;
 ACTUAL_BASE_DOME_DIAMETER = 10;
 ACTUAL_BASE_DOME_HEIGHT = 3;
 
-
 ACTUAL_TOPPER_DOME_DIAMETER = 5;
 ACTUAL_TOPPER_DOME_HEIGHT = 1;
 
+// 1.75mm thickness + some play. NOT SCALED.
+FILAMENT_PEG_THICKNESS = 1.8;
 
 BASE_THICKNESS = 0.1;
 
@@ -33,30 +34,68 @@ module thumb_rest() {
     }
 }
 
-scale(v = [SCALING_FACTOR, SCALING_FACTOR, SCALING_FACTOR]) {
-
-    cylinder(d = ACTUAL_STICK_DIAMETER, h = BASE_THICKNESS);
-    dome(d = ACTUAL_BASE_DOME_DIAMETER, h = ACTUAL_BASE_DOME_HEIGHT);
-    
-    translate([0,0,ACTUAL_BASE_DOME_HEIGHT + ACTUAL_TOPPER_DOME_HEIGHT / 2]) {
-        rotate([0,180,0]) {
-            dome(d = ACTUAL_TOPPER_DOME_DIAMETER, h = ACTUAL_TOPPER_DOME_HEIGHT);
-        }
-        cylinder(d = ACTUAL_STICK_DIAMETER, h = ACTUAL_STICK_THICKNESS - stick_dome_thickness);
-        translate([0,0, ACTUAL_STICK_THICKNESS - stick_dome_thickness]) {
-            dome(d = ACTUAL_STICK_DIAMETER, h = stick_dome_thickness);
+// the base version of top, not scaled or offset.
+module unscaled_top() {
+    rotate([0,180,0]) {
+        dome(d = ACTUAL_TOPPER_DOME_DIAMETER, h = ACTUAL_TOPPER_DOME_HEIGHT);
+    }
+    cylinder(d = ACTUAL_STICK_DIAMETER, h = ACTUAL_STICK_THICKNESS - stick_dome_thickness);
+    translate([0,0, ACTUAL_STICK_THICKNESS - stick_dome_thickness]) {
+        dome(d = ACTUAL_STICK_DIAMETER, h = stick_dome_thickness);
+        thumb_rest();
+        rotate([0, 0, 90]) {
             thumb_rest();
-            rotate([0, 0, 90]) {
-                thumb_rest();
-            }
-            rotate([0, 0, 180]) {
-                thumb_rest();
-            }            
-            rotate([0, 0, 270]) {
-                thumb_rest();
-            }
+        }
+        rotate([0, 0, 180]) {
+            thumb_rest();
+        }            
+        rotate([0, 0, 270]) {
+        thumb_rest();
         }
     }
 }
+
+module top() {
+    difference() {
+        scale(v = [SCALING_FACTOR, SCALING_FACTOR, SCALING_FACTOR]) {
+            translate([0, 0, ACTUAL_TOPPER_DOME_HEIGHT]) {
+                unscaled_top();
+            }
+        }
+        // this is an arbitrarily large cylinder offset 1mm from the bottom.
+        // This is unscaled, so may require tweaking for certain scale values.
+        translate([0,0,-1]) {
+            cylinder(10, d = FILAMENT_PEG_THICKNESS);
+        }
+    }
+}
+
+module bottom() {
+    difference() {
+        scale(v = [SCALING_FACTOR, SCALING_FACTOR, SCALING_FACTOR]) {
+            cylinder(d = ACTUAL_STICK_DIAMETER, h = BASE_THICKNESS);
+            dome(d = ACTUAL_BASE_DOME_DIAMETER, h = ACTUAL_BASE_DOME_HEIGHT);
+        }
+        scale(v = [SCALING_FACTOR, SCALING_FACTOR, SCALING_FACTOR]) {
+            translate([0, 0, ACTUAL_BASE_DOME_HEIGHT + ACTUAL_TOPPER_DOME_HEIGHT / 2]) {
+                unscaled_top();
+            }
+        }
+        // this is an arbitrarily large cylinder offset 1mm from the bottom.
+        // This is unscaled, so may require tweaking for certain scale values.
+        translate([0,0,1]) {
+            cylinder(10, d = FILAMENT_PEG_THICKNESS);
+        }
+    }
+}
+
+
+    
+
+
+bottom();
+
+// top();
+
 
 
